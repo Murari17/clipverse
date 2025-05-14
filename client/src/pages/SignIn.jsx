@@ -69,6 +69,8 @@ const Link = styled.span`
   margin-left: 30px;
 `;
 
+const API_BASE_URL = "https://YOUR-BACKEND-RENDER-URL"; // <-- Replace with your actual backend URL
+
 const SignIn = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -80,7 +82,7 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const res = await axios.post("/api/auth/signin", { name, password });
+      const res = await axios.post(`${API_BASE_URL}/api/auth/signin`, { name, password });
       dispatch(loginSuccess(res.data));
       navigate("/")
     } catch (err) {
@@ -93,7 +95,7 @@ const SignIn = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         axios
-          .post("/api/auth/google", {
+          .post(`${API_BASE_URL}/api/auth/google`, {
             name: result.user.displayName,
             email: result.user.email,
             img: result.user.photoURL,
@@ -112,10 +114,9 @@ const SignIn = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/auth/signup", { name, email, password });
-      const loginRes = await axios.post("/api/auth/signin", { name, password });
+      const res = await axios.post(`${API_BASE_URL}/api/auth/signup`, { name, email, password });
+      const loginRes = await axios.post(`${API_BASE_URL}/api/auth/signin`, { name, password });
       dispatch(loginSuccess(loginRes.data));
-      // Use navigate from react-router, not window.location
       navigate("/", { replace: true });
     } catch (err) {
       alert("Registration failed");
