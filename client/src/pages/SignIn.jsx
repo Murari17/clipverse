@@ -69,7 +69,7 @@ const Link = styled.span`
   margin-left: 30px;
 `;
 
-const API_BASE_URL = "https://YOUR-BACKEND-RENDER-URL"; // <-- Replace with your actual backend URL
+const API_BASE_URL = "https://clipverse-backend-1r09.onrender.com"; // <-- Replace with your actual backend URL
 
 const SignIn = () => {
   const [name, setName] = useState("");
