@@ -11,12 +11,14 @@ const Container = styled.div`
   min-height: 100vh;
 `;
 
+const API_BASE_URL = "https://clipverse-backend-1r09.onrender.com";
+
 const Home = ({type}) => {
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
     const fetchVideos = async () => {
-      const res = await axios.get(`/api/videos/${type}`);
+      const res = await axios.get(`${API_BASE_URL}/api/videos/${type}`);
       // Debug log to see what is returned
       console.log('Fetched videos:', res.data);
       setVideos(Array.isArray(res.data) ? res.data : []);
