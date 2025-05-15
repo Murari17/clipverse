@@ -47,6 +47,7 @@ const Profile = () => {
   const defaultAvatar = require("../img/logo.png");
   const [selectedFile, setSelectedFile] = React.useState(null);
   const [uploading, setUploading] = React.useState(false);
+  const API_BASE_URL = "https://clipverse-backend-1r09.onrender.com";
 
   const handleLogout = () => {
     dispatch(logout());
@@ -63,7 +64,7 @@ const Profile = () => {
     const formData = new FormData();
     formData.append("img", selectedFile);
     try {
-      const res = await fetch(`/api/users/${currentUser._id}/avatar`, {
+      const res = await fetch(`${API_BASE_URL}/api/users/${currentUser._id}/avatar`, {
         method: "PUT",
         body: formData,
         credentials: "include",
@@ -82,7 +83,7 @@ const Profile = () => {
   const handleDeleteAccount = async () => {
     if (!window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) return;
     try {
-      const res = await fetch(`/api/users/${currentUser._id}`, {
+      const res = await fetch(`${API_BASE_URL}/api/users/${currentUser._id}`, {
         method: "DELETE",
         credentials: "include",
       });
