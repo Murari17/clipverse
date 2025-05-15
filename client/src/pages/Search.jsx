@@ -10,13 +10,15 @@ const Container = styled.div`
   gap: 10px;
 `;
 
+const API_BASE_URL = "https://clipverse-backend-1r09.onrender.com";
+
 const Search = () => {
   const [videos, setVideos] = useState([]);
   const query = useLocation().search;
 
   useEffect(() => {
     const fetchVideos = async () => {
-      const res = await axios.get(`/api/videos/search${query}`);
+      const res = await axios.get(`${API_BASE_URL}/api/videos/search${query}`);
       setVideos(res.data);
     };
     fetchVideos();
