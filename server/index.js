@@ -12,6 +12,7 @@ import fileUpload from "express-fileupload";
 import cors from "cors";
 
 const app = express();
+app.set("trust proxy", 1); // Trust proxy for correct cookie handling on Render/Heroku
 dotenv.config();
 
 const connect = () => {
