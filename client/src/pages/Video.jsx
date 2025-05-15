@@ -116,6 +116,8 @@ const VideoFrame = styled.video`
   object-fit: cover;
 `;
 
+const API_BASE_URL = "https://clipverse-backend-1r09.onrender.com";
+
 const Video = () => {
   const { currentUser } = useSelector((state) => state.user);
   const { currentVideo } = useSelector((state) => state.video);
@@ -128,9 +130,9 @@ const Video = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const videoRes = await axios.get(`/api/videos/find/${path}`);
+        const videoRes = await axios.get(`${API_BASE_URL}/api/videos/find/${path}`);
         const channelRes = await axios.get(
-          `/api/users/find/${videoRes.data.userId}`
+          `${API_BASE_URL}/api/users/find/${videoRes.data.userId}`
         );
         setChannel(channelRes.data);
         dispatch(fetchSuccess(videoRes.data));
@@ -138,23 +140,23 @@ const Video = () => {
     };
     fetchData();
     // Increment view count when video is loaded, send credentials for cookies
-    axios.put(`/api/videos/view/${path}`, {}, { withCredentials: true });
+    axios.put(`${API_BASE_URL}/api/videos/view/${path}`, {}, { withCredentials: true });
   }, [path, dispatch]);
 
   const handleLike = async () => {
-    await axios.put(`/api/users/like/${currentVideo._id}`, {}, { withCredentials: true });
+    await axios.put(`${API_BASE_URL}/api/users/like/${currentVideo._id}`, {}, { withCredentials: true });
     dispatch(like(currentUser._id));
   };
   const handleDislike = async () => {
-    await axios.put(`/api/users/dislike/${currentVideo._id}`, {}, { withCredentials: true });
+    await axios.put(`${API_BASE_URL}/api/users/dislike/${currentVideo._id}`, {}, { withCredentials: true });
     dispatch(dislike(currentUser._id));
   };
 
   const handleSub = async () => {
     if (currentUser.subscribedUsers.includes(channel._id)) {
-      await axios.put(`/api/users/unsub/${channel._id}`, {}, { withCredentials: true });
+      await axios.put(`${API_BASE_URL}/api/users/unsub/${channel._id}`, {}, { withCredentials: true });
     } else {
-      await axios.put(`/api/users/sub/${channel._id}`, {}, { withCredentials: true });
+      await axios.put(`${API_BASE_URL}/api/users/sub/${channel._id}`, {}, { withCredentials: true });
     }
     dispatch(subscription(channel._id));
   };
