@@ -32,8 +32,8 @@ export const signin = async (req, res, next) => {
     res
       .cookie("access_token", token, {
         httpOnly: true,
-        secure: false, // Allow cookie over HTTP for local development
-        sameSite: "lax"
+        secure: true, // must be true for HTTPS in production
+        sameSite: "none" // must be 'none' for cross-site cookies
       })
       .status(200)
       .json(others);
@@ -50,8 +50,8 @@ export const googleAuth = async (req, res, next) => {
       res
         .cookie("access_token", token, {
           httpOnly: true,
-          secure: false, // Allow cookie over HTTP for local development
-          sameSite: "lax"
+          secure: true, // must be true for HTTPS in production
+          sameSite: "none" // must be 'none' for cross-site cookies
         })
         .status(200)
         .json(user._doc);
@@ -65,8 +65,8 @@ export const googleAuth = async (req, res, next) => {
       res
         .cookie("access_token", token, {
           httpOnly: true,
-          secure: false, // Allow cookie over HTTP for local development
-          sameSite: "lax"
+          secure: true, // must be true for HTTPS in production
+          sameSite: "none" // must be 'none' for cross-site cookies
         })
         .status(200)
         .json(savedUser._doc);
