@@ -133,11 +133,25 @@ const Upload = ({ setOpen }) => {
     img && uploadFile(img, "imgUrl");
   }, [img]);
 
-  const handleUpload = async (e)=>{
+  const handleUpload = async (e) => {
     e.preventDefault();
-    const res = await axios.post("/api/videos", {...inputs, tags})
-    setOpen(false)
-    res.status===200 && navigate(`/video/${res.data._id}`)
+    try {
+      // Use absolute API URL and send credentials
+      const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "https://clipverse-backend-1r09.onrender.com";
+      const res = await axios.post(
+        `${API_BASE_URL}/api/videos`,
+        { ...inputs, tags },
+        { withCredentials: true }
+      );
+      if (res.status === 200 && res.data && res.data._id) {
+        setOpen(false);
+        navigate(`/video/${res.data._id}`);
+      } else {
+        alert("Video upload failed: No video ID returned.");
+      }
+    } catch (err) {
+      alert("Video upload failed: " + (err?.response?.data?.message || err.message));
+    }
   }
 
   return (
