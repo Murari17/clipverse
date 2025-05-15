@@ -82,7 +82,7 @@ const SignIn = () => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const res = await axios.post(`${API_BASE_URL}/api/auth/signin`, { name, password });
+      const res = await axios.post(`${API_BASE_URL}/api/auth/signin`, { name, password }, { withCredentials: true });
       dispatch(loginSuccess(res.data));
       navigate("/")
     } catch (err) {
@@ -99,7 +99,7 @@ const SignIn = () => {
             name: result.user.displayName,
             email: result.user.email,
             img: result.user.photoURL,
-          })
+          }, { withCredentials: true })
           .then((res) => {
             console.log(res)
             dispatch(loginSuccess(res.data));
@@ -114,8 +114,8 @@ const SignIn = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${API_BASE_URL}/api/auth/signup`, { name, email, password });
-      const loginRes = await axios.post(`${API_BASE_URL}/api/auth/signin`, { name, password });
+      const res = await axios.post(`${API_BASE_URL}/api/auth/signup`, { name, email, password }, { withCredentials: true });
+      const loginRes = await axios.post(`${API_BASE_URL}/api/auth/signin`, { name, password }, { withCredentials: true });
       dispatch(loginSuccess(loginRes.data));
       navigate("/", { replace: true });
     } catch (err) {
