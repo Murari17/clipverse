@@ -93,7 +93,10 @@ const Navbar = () => {
           {currentUser ? (
             <User>
               <VideoCallOutlinedIcon onClick={() => setOpen(true)} />
-              <Avatar src={currentUser.img} onClick={() => navigate("/profile")} style={{cursor: "pointer"}} />
+              <picture>
+                <source srcSet={currentUser.img?.replace(/\.(jpg|jpeg|png)$/i, ".webp")} type="image/webp" />
+                <Avatar src={currentUser.img} alt={currentUser.name ? `${currentUser.name} avatar` : "User avatar"} width={32} height={32} loading="lazy" onClick={() => navigate("/profile")} style={{cursor: "pointer"}} />
+              </picture>
               <span onClick={() => navigate("/profile")} style={{cursor: "pointer"}}>{currentUser.name}</span>
             </User>
           ) : (
