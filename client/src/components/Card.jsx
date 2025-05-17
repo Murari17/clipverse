@@ -67,15 +67,29 @@ const Card = ({ type, video }) => {
   return (
     <Link to={`/video/${video._id}`} style={{ textDecoration: "none" }}>
       <Container type={type}>
-        <Image
-          type={type}
-          src={video.imgUrl}
-        />
-        <Details type={type}>
-          <ChannelImage
+        <picture>
+          <source srcSet={video.imgUrl?.replace(/\.(jpg|jpeg|png)$/i, ".webp")} type="image/webp" />
+          <Image
             type={type}
-            src={channel.img}
+            src={video.imgUrl}
+            alt={video.title || "Video thumbnail"}
+            width={type === "sm" ? 160 : 360}
+            height={type === "sm" ? 120 : 202}
+            loading="lazy"
           />
+        </picture>
+        <Details type={type}>
+          <picture>
+            <source srcSet={channel.img?.replace(/\.(jpg|jpeg|png)$/i, ".webp")} type="image/webp" />
+            <ChannelImage
+              type={type}
+              src={channel.img}
+              alt={channel.name ? `${channel.name} channel avatar` : "Channel avatar"}
+              width={36}
+              height={36}
+              loading="lazy"
+            />
+          </picture>
           <Texts>
             <Title>{video.title}</Title>
             <ChannelName>{channel.name}</ChannelName>
