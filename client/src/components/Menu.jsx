@@ -41,6 +41,7 @@ const Logo = styled.div`
 
 const Img = styled.img`
   height: 25px;
+  width: 25px;
 `;
 
 const Item = styled.div`
@@ -90,7 +91,10 @@ const Menu = ({ darkMode, setDarkMode }) => {
       <Wrapper>
         <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
           <Logo>
-            <Img src={ClipVerse} />
+            <picture>
+              <source srcSet={ClipVerse.replace(/\.(jpg|jpeg|png)$/i, ".webp")} type="image/webp" />
+              <Img src={ClipVerse} alt="ClipVerse logo" width={25} height={25} loading="lazy" />
+            </picture>
             ClipVerse
           </Logo>
         </Link>
