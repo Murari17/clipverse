@@ -102,7 +102,10 @@ const Profile = () => {
 
   return (
     <Container>
-      <Avatar src={currentUser.img || defaultAvatar} alt="avatar" onError={e => e.target.src = defaultAvatar} />
+      <picture>
+        <source srcSet={(currentUser.img || defaultAvatar)?.replace(/\.(jpg|jpeg|png)$/i, ".webp")} type="image/webp" />
+        <Avatar src={currentUser.img || defaultAvatar} alt="avatar" width={100} height={100} loading="lazy" onError={e => e.target.src = defaultAvatar} />
+      </picture>
       <Name>{currentUser.name}</Name>
       <Email>{currentUser.email}</Email>
       <Button onClick={handleLogout}>Logout</Button>
