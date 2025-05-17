@@ -204,7 +204,10 @@ const Video = () => {
         <Hr />
         <Channel>
           <ChannelInfo>
-            <Image src={channel.img} />
+            <picture>
+              <source srcSet={channel.img?.replace(/\.(jpg|jpeg|png)$/i, ".webp")} type="image/webp" />
+              <Image src={channel.img} alt={channel.name ? `${channel.name} avatar` : "Channel avatar"} width={50} height={50} loading="lazy" />
+            </picture>
             <ChannelDetail>
               <ChannelName>{channel.name}</ChannelName>
               <ChannelCounter>{channel.subscribers} subscribers</ChannelCounter>
