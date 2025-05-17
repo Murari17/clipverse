@@ -49,7 +49,10 @@ const Comment = ({ comment }) => {
 
   return (
     <Container>
-      <Avatar src={channel.img} />
+      <picture>
+        <source srcSet={channel.img?.replace(/\.(jpg|jpeg|png)$/i, ".webp")} type="image/webp" />
+        <Avatar src={channel.img} alt={channel.name ? `${channel.name} avatar` : "User avatar"} width={50} height={50} loading="lazy" />
+      </picture>
       <Details>
         <Name>
           {channel.name} <Date>1 day ago</Date>
