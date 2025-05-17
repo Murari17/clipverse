@@ -49,7 +49,10 @@ const Comments = ({videoId}) => {
   return (
     <Container>
       <NewComment>
-        <Avatar src={currentUser.img} />
+        <picture>
+          <source srcSet={currentUser.img?.replace(/\.(jpg|jpeg|png)$/i, ".webp")} type="image/webp" />
+          <Avatar src={currentUser.img} alt={currentUser.name ? `${currentUser.name} avatar` : "User avatar"} width={50} height={50} loading="lazy" />
+        </picture>
         <Input placeholder="Add a comment..." />
       </NewComment>
       {comments.map(comment => (
